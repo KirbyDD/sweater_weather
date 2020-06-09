@@ -1,10 +1,12 @@
 class TrailsService
 
-  def trails(location)
+  def trails(location, start)
     connection = conn(location)
     search = connection.get
-    trails = JSON.parse(search.body, symbolize_names: true)
-    binding.pry
+    response = JSON.parse(search.body, symbolize_names: true)[:trails]
+    trails = response.map do |trail_obj|
+      Trail.new(trail_obj, start)
+    end
   end
 
   private
