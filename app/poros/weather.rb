@@ -3,7 +3,7 @@ class Weather
 
   def initialize(location)
     weather_service = WeatherService.new
-    response = @weather_service.get_weather(location)
+    response = weather_service.get_weather(location)
     @current = current_hash(response)
     @details = details_hash(response)
     @hourly = hourly_hash(response)
@@ -14,7 +14,6 @@ class Weather
   private
 
   def current_hash(response)
-    binding.pry
     hash = Hash.new
     hash[:weather] = response[:current][:weather][0][:main]
     hash[:tempature] = response[:current][:temp]
